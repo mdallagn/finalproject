@@ -19,7 +19,7 @@ spec:
       serviceAccountName: clo835
       containers:
         - name: application-container
-          image: 621018582771.dkr.ecr.us-east-1.amazonaws.com/application-images/v0.1
+          image: 621018582771.dkr.ecr.us-east-1.amazonaws.com/application-images/v0.2
           env:
             - name: DBPWD
               valueFrom:
