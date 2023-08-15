@@ -67,6 +67,7 @@ BACKGROUND_IMAGE_PATH = "/static/downloads/download.jpg"
 print(BACKGROUND_IMAGE_PATH)
 
 
+
 @app.route("/", methods=['GET', 'POST'])
 def home():
     return render_template('addemp.html', background_image=BACKGROUND_IMAGE_PATH, GROUP_NAME=GROUP_NAME)
