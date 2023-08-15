@@ -18,7 +18,8 @@ DBUSER = os.environ.get("DBUSER") or "root"
 DBPWD = os.environ.get("DBPWD") or "passwors"
 DATABASE = os.environ.get("DATABASE") or "employees"
 COLOR_FROM_ENV = os.environ.get('APP_COLOR') or "lime"
-IMAGE_URL = os.environ.get("IMAGE_URL") or "Broken IMG"
+IMAGE_URL = "https://clo835finalproject.s3.amazonaws.com/download.jpg"
+#IMAGE_URL = os.environ.get("IMAGE_URL") or "Broken IMG"
 GROUP_NAME = os.environ.get("GROUP_NAME")
 
 DBPORT = os.environ.get("DBPORT")
@@ -42,7 +43,6 @@ db_conn = connections.Connection(
 )
 output = {}
 table = 'employee';
-
 
 
 
