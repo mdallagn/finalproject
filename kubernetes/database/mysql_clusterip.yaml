@@ -4,10 +4,10 @@ metadata:
   name: mysql
   labels:
     app: mysql
-    component: database
 spec:
   ports:
-    - port: 3306
-      targetPort: 3306
+  - port: 3306
+    targetPort: 3306
   selector:
     app: mysql
+  type: ClusterIP

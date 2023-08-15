@@ -4,33 +4,35 @@ metadata:
   name: mysql
   labels:
     app: mysql
-    component: database
+    component: backend
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: mysql
+      component: backend
+  replicas: 1
   template:
     metadata:
       labels:
         app: mysql
-        component: database
+        component: backend
     spec:
+      serviceAccountName: clo835-group7
       containers:
-        - name: mysql-container
-          image: 621018582771.dkr.ecr.us-east-1.amazonaws.com/mysql-images/v0.2
-          env:
+      - name: mysql-db
+        image: 621018582771.dkr.ecr.us-east-1.amazonaws.com/mysql-images:v0.2
+        env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mysql
-                  key: password
-          ports:
-            - containerPort: 3306
-          volumeMounts:
-            - name: mysql-storage
-              mountPath: /var/lib/mysql
-      volumes:
-      - name: mysql-storage
-        persistentVolumeClaim:
-          claimName: mysql
+                  name: mysql-secrets
+                  key: mysql-root-password
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: mysql-database
+       
+        ports:
+        - containerPort: 3306
+          protocol: TCP
