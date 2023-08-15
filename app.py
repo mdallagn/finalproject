@@ -10,6 +10,7 @@ from flask import send_from_directory
 
 
 
+
 app = Flask(__name__)
 
 DBHOST = os.environ.get("DBHOST") or "localhost"
@@ -52,7 +53,7 @@ if not os.path.exists(DOWNLOADS_PATH):
     
     
 # Download the image from the S3 URL
-IMAGE_PATH = os.path.join(DOWNLOADS_PATH, "sample1.jpg")
+IMAGE_PATH = os.path.join(DOWNLOADS_PATH, "download.jpg")
 response = requests.get(IMAGE_URL)
 if response.status_code == 200:
     with open(IMAGE_PATH, "wb") as f:
@@ -62,7 +63,7 @@ else:
     print("Failed to download image.")
 
 # Define a variable for the image path
-BACKGROUND_IMAGE_PATH = "/static/downloads/sample1.jpg"  
+BACKGROUND_IMAGE_PATH = "/static/downloads/download.jpg"  
 print(BACKGROUND_IMAGE_PATH)
 
 
