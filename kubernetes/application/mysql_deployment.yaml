@@ -20,7 +20,7 @@ spec:
       serviceAccountName: clo835
       containers:
       - name: mysql-db
-        image: 621018582771.dkr.ecr.us-east-1.amazonaws.com/mysql-images:v0.2
+        image: 621018582771.dkr.ecr.us-east-1.amazonaws.com/mysql-images:v0.3
         env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
