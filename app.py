@@ -12,7 +12,7 @@ DBUSER = os.environ.get("DBUSER") or "root"
 DBPWD = os.environ.get("DBPWD") or "password"
 DATABASE = os.environ.get("DATABASE") or "employees"
 BGIMG = os.environ.get("BGIMG") or "background.jpg"
-BUCKETNAME = os.environ.get("BUCKETNAME") or "clo835finalproject"
+BUCKETNAME = os.environ.get("BUCKETNAME") or "clo835-g7-finalproject"
 GRPNAME = os.environ.get("GRPNAME") or "Group 7"
 DBPORT = int(os.environ.get("DBPORT", "3306"))
 
@@ -28,8 +28,8 @@ db_conn = connections.Connection(
 output = {}
 table = 'employee';
 
-default_bucket = "finalprojectbucket9"
-default_image = "background.jpg"
+default_bucket = "clo835-g7-finalproject"
+default_image = "bgimage.jpg"
 
 @app.route("/download", methods=['GET', 'POST'])
 def download(bucket = default_bucket, imageName = default_image):
@@ -37,12 +37,12 @@ def download(bucket = default_bucket, imageName = default_image):
         imagesDir = "static"
         if not os.path.exists(imagesDir):
             os.makedirs(imagesDir)
-        bgImagePath = os.path.join(imagesDir, "seneca.png")
+        bgImagePath = os.path.join(imagesDir, "bg.png")
         
         print(bucket, imageName)
         s3 = boto3.resource('s3')
         s3.Bucket(bucket).download_file(imageName, bgImagePath)
-        return os.path.join(imagesDir, "seneca.png")
+        return os.path.join(imagesDir, "bg.png")
     except Exception as e:
         print("Exception occured while fetching the image! Check the log --> ", e)
        
