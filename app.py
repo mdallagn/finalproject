@@ -8,8 +8,6 @@ import argparse
 import requests
 from flask import send_from_directory
 
-  
-
 
 app = Flask(__name__)
 
