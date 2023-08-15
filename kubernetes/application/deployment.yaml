@@ -1,10 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: application
+  name: webapp
   labels:
     app: employees
-    component: frontend
 spec:
   replicas: 1
   selector:
@@ -14,46 +13,50 @@ spec:
     metadata:
       labels:
         app: employees
-        component: frontend
     spec:
       serviceAccountName: clo835
       containers:
-        - name: application-container
-          image: 621018582771.dkr.ecr.us-east-1.amazonaws.com/application-images/v0.1
+        - name: webapp
+          image: 621018582771.dkr.ecr.us-east-1.amazonaws.com/application-images:v0.2
+          ports:
+            - containerPort: 81
           env:
+            - name: DBHOST
+              valueFrom:
+                configMapKeyRef:
+                  name: webapp
+                  key: DBHOST
+            - name: DBPORT
+              valueFrom:
+                configMapKeyRef:
+                  name: webapp
+                  key: DBPORT
+            - name: DBUSER
+              valueFrom:
+                configMapKeyRef:
+                  name: webapp
+                  key: DBUSER      
+            
+              
             - name: DBPWD
               valueFrom:
                 secretKeyRef:
-                  name: mysql
-                  key: password
-            - name: DBUSER
+                  name: mysql-secrets
+                  key: mysql-root-password
+            - name: DATABASE
               valueFrom:
                 secretKeyRef:
-                  name: mysql
-                  key: username
-            - name: DBHOST
-              value: "mysql.final.svc.cluster.local"
-            - name: DBPORT
-              value: "3306"
-            - name: BUCKETNAME
+                  name: mysql-secrets
+                  key: mysql-database
+            
+              
+            - name: GROUP_NAME
               valueFrom:
                 configMapKeyRef:
-                  name: app-configmap
-                  key: bucket
-            - name: BGIMG
+                  name: webapp
+                  key: GROUP_NAME
+            - name: IMAGE_URL
               valueFrom:
                 configMapKeyRef:
-                  name: app-configmap
-                  key: bgimg
-            - name: GRPNAME
-              valueFrom:
-                configMapKeyRef:
-                  name: app-configmap
-                  key: grpname
-          resources:
-            requests:
-              cpu: 15m
-            limits:
-              cpu: 50m
-          ports:
-            - containerPort: 81
+                  name: webapp
+                  key: IMAGE_URL

@@ -1,6 +1,6 @@
 # Local .terraform directories
 **/.terraform/*
-
+/finalproject/kubernetes/aws/*
 # .tfstate files
 *.tfstate
 *.tfstate.*
